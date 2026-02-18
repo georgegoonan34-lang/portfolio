@@ -30,37 +30,90 @@ const instrumentSerif = localFont({
   display: "swap",
 });
 
-const structuredData = JSON.stringify({
+// Static JSON-LD strings — no user input, safe for injection
+const localBusinessSchema = JSON.stringify({
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
   name: "InvoxAI",
-  description: "AI-powered lead capture and business automation for trade businesses",
   url: "https://invoxai.uk",
-  areaServed: "United Kingdom",
-  serviceType: ["AI Lead Capture", "Business Automation", "AI Integration"],
+  description:
+    "AI voice and chat agents that answer calls, qualify leads, and book jobs for trade businesses across the UK.",
+  email: "georgegoonan@invoxai.uk",
+  areaServed: {
+    "@type": "Country",
+    name: "United Kingdom",
+  },
+  serviceType: [
+    "AI Phone Answering Service",
+    "AI Voice Agents for Businesses",
+    "Business Automation for Tradespeople",
+    "AI Lead Qualification",
+    "AI Chatbot for Trade Businesses",
+  ],
+  knowsAbout: [
+    "Artificial Intelligence",
+    "Voice AI Agents",
+    "Lead Capture Automation",
+    "Trade Business Automation",
+    "AI for Plumbers",
+    "AI for Electricians",
+  ],
+  sameAs: [],
+});
+
+const webSiteSchema = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "InvoxAI",
+  url: "https://invoxai.uk",
+});
+
+const organizationSchema = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "InvoxAI",
+  url: "https://invoxai.uk",
+  contactPoint: {
+    "@type": "ContactPoint",
+    email: "georgegoonan@invoxai.uk",
+    contactType: "sales",
+    areaServed: "GB",
+    availableLanguage: "English",
+  },
+  description:
+    "We build AI voice and chat agents for trade businesses across the UK. Automated inbound call handling, lead qualification, and business operations automation.",
 });
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://invoxai.uk"),
-  title: "InvoxAI — AI-Powered Lead Capture & Automation for Trade Businesses",
+  title:
+    "InvoxAI — AI Phone Answering & Automation for Trade Businesses | UK",
   description:
-    "We build AI systems that capture inbound leads, qualify them, and book the job — automatically. Built for plumbers, electricians, builders, and trade businesses across the UK.",
+    "AI voice and chat agents that answer calls, qualify leads, and book jobs for plumbers, electricians, roofers and trade businesses across the UK. Never miss a call again. 24/7 automated inbound handling.",
   keywords: [
-    "AI lead capture",
-    "trade business automation",
-    "inbound leads",
-    "plumber automation",
-    "electrician lead capture",
-    "AI for trades",
-    "UK trades",
-    "business automation",
+    "ai phone answering service uk",
+    "ai receptionist for small business",
+    "ai call answering for tradespeople",
+    "ai voice agent for plumbers",
+    "never miss a call ai",
+    "automated phone answering for trade businesses",
+    "ai lead capture for electricians",
+    "invox ai",
+    "invoxai",
+    "ai business automation uk",
+    "virtual receptionist trades",
+    "24/7 call answering trades",
   ],
   authors: [{ name: "InvoxAI" }],
+  alternates: {
+    canonical: "https://invoxai.uk/",
+  },
   openGraph: {
-    title: "InvoxAI — AI-Powered Lead Capture & Automation for Trade Businesses",
+    title:
+      "InvoxAI — AI Phone Answering & Automation for Trade Businesses",
     description:
-      "AI systems that capture inbound leads, qualify them, and book the job — automatically. Built for trade businesses across the UK.",
-    url: "https://invoxai.uk",
+      "AI voice and chat agents that answer calls, qualify leads, and book jobs for trade businesses across the UK. Never miss a call again.",
+    url: "https://invoxai.uk/",
     siteName: "InvoxAI",
     locale: "en_GB",
     type: "website",
@@ -69,16 +122,21 @@ export const metadata: Metadata = {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "InvoxAI — AI-powered agents for trade businesses",
+        alt: "InvoxAI — AI voice agents for plumbers, electricians and trade businesses in the UK",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "InvoxAI — AI-Powered Lead Capture & Automation for Trade Businesses",
+    title:
+      "InvoxAI — AI Phone Answering & Automation for Trade Businesses",
     description:
-      "AI systems that capture leads and automate admin for trade businesses. Stop chasing, start closing.",
+      "AI voice and chat agents that answer calls, qualify leads, and book jobs for trade businesses. UK-based. 24/7.",
     images: ["/og-image.png"],
+  },
+  other: {
+    "geo.region": "GB",
+    "geo.placename": "United Kingdom",
   },
   robots: {
     index: true,
@@ -92,10 +150,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en-GB" className="dark">
       <head>
         <script type="application/ld+json" suppressHydrationWarning>
-          {structuredData}
+          {localBusinessSchema}
+        </script>
+        <script type="application/ld+json" suppressHydrationWarning>
+          {webSiteSchema}
+        </script>
+        <script type="application/ld+json" suppressHydrationWarning>
+          {organizationSchema}
         </script>
       </head>
       <body
